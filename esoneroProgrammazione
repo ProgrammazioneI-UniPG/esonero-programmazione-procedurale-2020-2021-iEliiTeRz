@@ -1,0 +1,77 @@
+Alexandru Laviniu Rus 331887
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
+const int L = 126;
+
+void xor (char m[], char k[]){
+	char cod[L];
+	for (int c=0; c<strlen(m); c++){
+		cod[c]=m[c]^k[c];
+	}
+}
+
+int main()
+{
+   char m[L], k[L];
+   int s;
+   time_t t;
+   
+   srand((unsigned) time(&t));
+   
+   do{
+   printf("inserire testo da decifrare (massimo 128 caratteri)/n");
+   fgets(m, L, stdin);
+   if(strlen(m) > L){
+	   printf("errore, testo troppo lungo, massimo 128 caratteri");
+   }
+   } while(strlen(m) > L);
+ 
+ do{
+           printf("------ Inserire l'operazione che desidera eseguire ------/n/n 1)Inserire chiave di cifratura (128 caratteri)/n/n 2)Generare chiave randomica di cifratura/n/n 3)Exit);
+		   scanf("%d",&s);
+            switch(s){
+                case 1:
+			do{
+            printf("--> ");
+			fgets(k, L, stdin);
+			if(strlen(k) > L){
+			printf("/nerrore, testo troppo lungo, massimo 128 caratteri");
+			}
+			} while(strlen(k) > L || strlen(k) < L);
+			
+			xor(m, k);
+			
+			printf("testo cifrato: %s", cod);
+			
+			xor(cod, k);
+			
+			printf("testo decifrato: %s", cod);
+				
+				break;
+                case 2:
+                   for(int c = 0; c < L; c++){
+					   k[c] = rand() % 128;
+				   }
+				   printf("/nla chiave generata randomicamente e': %s",k);
+				   
+					xor(m, k);
+			
+					printf("testo cifrato: %s", cod);
+			
+					xor(cod, k);
+			
+					printf("testo decifrato: %s", cod);
+                    break;
+                case 3:
+                    System.out.println("ARRIVEDERCI");
+                    exit(0);
+                    break;
+            }
+ 
+  }while(s!=3);
+
+ return 0;
+}
+
